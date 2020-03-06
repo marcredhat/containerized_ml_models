@@ -1,20 +1,3 @@
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 
-# File Author / Maintainer
-MAINTAINER Marc Chisinevski
 
-# Copy the application folder inside the container
-ADD /titanic_tf_ml_model /titanic_tf_ml_model
-
-# Get pip to download and install requirements:
-RUN microdnf update -y &&  microdnf -y install python3-pip   && python3 -m pip install -r /titanic_tf_ml_model/requirements.txt && microdnf clean all
-
-# Expose ports
-EXPOSE 5000
-
-# Set the default directory where CMD will execute
-WORKDIR /titanic_tf_ml_model
-
-# Set the default command to execute
-# when creating a new container
-CMD python3 server.py
